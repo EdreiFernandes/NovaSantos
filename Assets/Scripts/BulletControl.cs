@@ -29,7 +29,7 @@ public class BulletControl : MonoBehaviour
 
             //Bullet hit Animation
             bulletRigidBody.velocity = Vector2.zero;
-            bulletAnimator.SetTrigger("Hit");
+            bulletAnimator.SetTrigger(Constants.HitTrigger);
             Destroy(gameObject, hitDuration);
         }
     }

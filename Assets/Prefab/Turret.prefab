@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362f3d54c6dafa148841a969846d6207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToTurn: 7
   enemyVitality: 3
   turningDuration: 1.17
   explosionDuration: {fileID: 11400000, guid: 24a05bf0fd0674448876e262aeabfd75, type: 2}

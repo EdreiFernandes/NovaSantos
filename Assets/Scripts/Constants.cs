@@ -13,7 +13,12 @@ public class Constants : MonoBehaviour
     public const string LadderTag = "Ladder";
     public const string PlayerTag = "Player";
     public const string RespawnTag = "Respawn";
-    public const string GroundLayer = "Ground";
+
+    public const string HitTrigger = "Hit";
+    public const string TurningTrigger = "Turning";
+    public const string DestroyedTrigger = "Destroyed";
+
+    public const string GroundLayer = "Ground";    
     public const string DroneSummoner = "DroneSummoner";
     public const string TurretSummoner = "TurretSummoner";
 }

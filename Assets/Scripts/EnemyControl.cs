@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     private GameObject player;
-    private Animator enemyAnimator;
+    private float lastTurn = 0f;
+    private Animator enemyAnimator;      
     private bool facingRight = false;
+    [SerializeField] private float timeToTurn;
     [SerializeField] private int enemyVitality;
     [SerializeField] private float turningDuration;
     [SerializeField] private SharedVariableFloat explosionDuration;
@@ -19,35 +21,36 @@ public class EnemyControl : MonoBehaviour
 
     private void Update()
     {
-        Vector2 perpedicularToPlayer = Vector2.Perpendicular(player.transform.position);
-        Debug.Log(perpedicularToPlayer);
-        if (perpedicularToPlayer.y > 0 && !facingRight)
-        {            
-            StartCoroutine(Turning());
-        }
-        else if (perpedicularToPlayer.y < 0 && facingRight)
-        {            
-            StartCoroutine(Turning());
-        }
+        TurningTimer();
     }
 
     public void TakeDamage(int damage)
     {
         enemyVitality -= damage;
-        if (enemyVitality <= 0) Dead();
+        if (enemyVitality <= 0) Dead();        
     }
 
     private void Dead()
     {
-        enemyAnimator.SetTrigger("Destroyed");
+        enemyAnimator.SetTrigger(Constants.DestroyedTrigger);
         Destroy(gameObject, explosionDuration.Value);
+    }
+
+    private void TurningTimer()
+    {
+        float currentTime = Time.time;
+        if (lastTurn + timeToTurn < currentTime)
+        {
+            StartCoroutine(Turning());
+            lastTurn = currentTime;
+        }
     }
 
     IEnumerator Turning()
     {
         facingRight = !facingRight;
-        enemyAnimator.SetTrigger("Turning");
+        enemyAnimator.SetTrigger(Constants.TurningTrigger);
         yield return new WaitForSecondsRealtime(turningDuration);
-        transform.Rotate(0f, 180f, 0f);
+        transform.Rotate(0f, 180f, 0f); //flip
     }
 }
